@@ -1,3 +1,4 @@
-*.out
+build/
 bir.cpp
 bir.h
+kaitai_test
