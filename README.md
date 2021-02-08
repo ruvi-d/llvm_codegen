@@ -3,18 +3,19 @@
 This demo C++ uses LLVM Core libs to generate a basic main function.
 
 ## Building
-* Install LLVM core libs to your system (llvm-dev package in Ubuntu) and update `CMakeLists.txt` file accordingly
+* Download and build LLVM-src to your system update `CMakeLists.txt`'s header include and lib path accordingly.
 * Run the following commands to build
   
         mkdir build
         cd build
         cmake ../
-        make
+        msbuild ALL_BUILD.vcxproj /p:configuration=Debug
 * Generate IR and save
  
-        ./codegen > main.ll 
+        ./Debug/codegen.exe > main.ll
+* Open main.ll from notepad.exe and save as utf-8 encoding 
 * Compile and run LLVM IR. Then check return code
  
-        clang main.ll -o main.out
-        ./main.out
-        echo $?
+        clang main.ll -o main.exe
+        ./main.exe
+        echo $LASTEXITCODE 

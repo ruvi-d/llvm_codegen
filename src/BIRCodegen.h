@@ -2,10 +2,10 @@
 #define BIR_CODEGEN_H_
 
 #include <memory>
-#include <llvm-11/llvm/IR/Module.h>
-#include <llvm-11/llvm/IR/LLVMContext.h>
-#include <llvm-11/llvm/IR/IRBuilder.h>
-#include <llvm-11/llvm/IR/DerivedTypes.h>
+#include <llvm/IR/Module.h>
+#include <llvm/IR/LLVMContext.h>
+#include <llvm/IR/IRBuilder.h>
+#include <llvm/IR/DerivedTypes.h>
 
 namespace ballerina {
 class BIRCodegen {
