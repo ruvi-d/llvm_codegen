@@ -9,7 +9,7 @@ This demo C++ uses LLVM Core libs to generate a basic main function.
         mkdir build
         cd build
         cmake ../
-        msbuild ALL_BUILD.vcxproj /p:configuration=Debug
+        msbuild ALL_BUILD.vcxproj /p:configuration=Release
 * Generate IR and save
  
         ./Debug/codegen.exe > main.ll
