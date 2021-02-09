@@ -1,5 +1,6 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.15)
 project(bir_parser VERSION 0.0.1 LANGUAGES CXX)
+cmake_policy(SET CMP0091 NEW)
 
 # App
 include_directories("C:\\Users\\ruvi\\projects\\llvm-11.0.1.src\\install\\include")
