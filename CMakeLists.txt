@@ -8,6 +8,8 @@ file(GLOB SOURCES
     ${PROJECT_SOURCE_DIR}/src/*.cpp
 )
 add_executable(codegen_test ${SOURCES})
+set_property(TARGET codegen_test PROPERTY
+             MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 target_link_libraries(codegen_test PRIVATE LLVM-C
 LLVMBinaryFormat
 LLVMBitReader
