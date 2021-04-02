@@ -1,11 +1,11 @@
 #ifndef BIR_CODEGEN_H_
 #define BIR_CODEGEN_H_
 
-#include <memory>
-#include <llvm-11/llvm/IR/Module.h>
-#include <llvm-11/llvm/IR/LLVMContext.h>
-#include <llvm-11/llvm/IR/IRBuilder.h>
 #include <llvm-11/llvm/IR/DerivedTypes.h>
+#include <llvm-11/llvm/IR/IRBuilder.h>
+#include <llvm-11/llvm/IR/LLVMContext.h>
+#include <llvm-11/llvm/IR/Module.h>
+#include <memory>
 
 namespace ballerina {
 class BIRCodegen {
@@ -16,10 +16,11 @@ private:
   std::unique_ptr<llvm::IRBuilder<>> mBuilder;
   llvm::FunctionType *codegenFunctionType();
   void codegenMainExpr();
+  void codegenExternFunctionDeclarations();
 
 public:
   BIRCodegen();
-  ~BIRCodegen()=default;
+  ~BIRCodegen() = default;
   void codegenPackage();
   void configureTarget();
   void dumpLLVMIR();

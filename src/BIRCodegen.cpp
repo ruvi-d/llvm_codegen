@@ -15,6 +15,9 @@ void BIRCodegen::codegenPackage() {
 }
 
 void BIRCodegen::codegenMainExpr() {
+
+  codegenExternFunctionDeclarations();
+
   llvm::FunctionType *mainType =
       llvm::FunctionType::get(llvm::IntegerType::getInt32Ty(*mContext),
                               std::vector<llvm::Type *>(), false /* isVarArgs */
@@ -27,10 +30,27 @@ void BIRCodegen::codegenMainExpr() {
   mBuilder->SetInsertPoint(mainBasicBlock);
 
   // Add main expressions
+  std::vector<llvm::Value *> args;
+  llvm::APInt arg1(32 /* bitSize */, (uint32_t)5, true /* signed */);
+  llvm::APInt arg2(32 /* bitSize */, (uint32_t)6, true /* signed */);
+  args.push_back(llvm::ConstantInt::get(*(mContext), arg1));
+  args.push_back(llvm::ConstantInt::get(*(mContext), arg2));
+  llvm::Value *retValPtr =
+      mBuilder->CreateCall(mModule->getFunction("sum"), args);
 
   llvm::APInt retVal(32 /* bitSize */, (uint32_t)42, true /* signed */);
-  mBuilder->CreateRet(llvm::ConstantInt::get(*(mContext), retVal));
+  // mBuilder->CreateRet(llvm::ConstantInt::get(*(mContext), retVal));
+  mBuilder->CreateRet(retValPtr);
   llvm::verifyFunction(*main);
+}
+
+void BIRCodegen::codegenExternFunctionDeclarations() {
+  llvm::FunctionType *testFunctionType = llvm::FunctionType::get(
+      llvm::Type::getInt32Ty(*mContext),
+      llvm::ArrayRef<llvm::Type *>({llvm::Type::getInt32Ty(*mContext),
+                                    llvm::Type::getInt32Ty(*mContext)}),
+      /* has variadic args */ false);
+  mModule->getOrInsertFunction("sum", testFunctionType);
 }
 
 void BIRCodegen::dumpLLVMIR() { mModule->print(llvm::outs(), nullptr); }
